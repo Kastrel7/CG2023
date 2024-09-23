@@ -7,6 +7,8 @@ public class Model
 {
     List<Vector3> vertices;
     List<Vector3Int> faces;
+    List<Vector2> texture_coordinates;
+    List<Vector3Int> texture_index_list;
 
     public Model()
     {
@@ -19,6 +21,22 @@ public class Model
     {
         loadVertices();
         loadFaces();
+    }
+
+    private void loadTexture()
+    {
+        texture_coordinates.Add(new Vector2(0, 424)); //0
+        texture_coordinates.Add(new Vector2(99, 424)); //1
+        texture_coordinates.Add(new Vector2(200, 424)); //2
+        texture_coordinates.Add(new Vector2(299, 424)); //3
+        texture_coordinates.Add(new Vector2(95, 250)); //4
+        texture_coordinates.Add(new Vector2(150, 212)); //5
+        texture_coordinates.Add(new Vector2(95, 174)); //6
+        texture_coordinates.Add(new Vector2(0, 0)); //7
+        texture_coordinates.Add(new Vector2(99, 0)); //8
+        texture_coordinates.Add(new Vector2(200, 0)); //9
+        texture_coordinates.Add(new Vector2(299, 0)); //10
+
     }
 
     private void loadFaces()
@@ -108,6 +126,14 @@ public class Model
 
         faces.Add(new Vector3Int(3, 14, 16));
         faces.Add(new Vector3Int(3, 16, 5));
+    }
+
+    List<Vector2> Adjust_to_relative(List<Vector2> pixels, int ResX, int ResY)
+    {
+        List<Vector2> hold new List<Vector2>();
+        foreach (Vector2 v in pixels)
+            hold.Add(new Vector2(v.x/ResX, v.y/ResY));
+        return hold;
     }
 
     ////////////////////////////////////////////////////////
