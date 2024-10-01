@@ -20,9 +20,10 @@ public class GraphicsPipeline : MonoBehaviour
         ////////Rotation Matrix////////
         Vector3 axis = (new Vector3(19, -2, -2)).normalized;
         Matrix4x4 rotationMatrix =
-            Matrix4x4.TRS(Vector3.zero,
-                        Quaternion.AngleAxis(44, axis),
-                        Vector3.one);
+            Matrix4x4.TRS(
+                Vector3.zero,
+                Quaternion.AngleAxis(44, axis),
+                Vector3.one);
         sw.WriteLine("Rotation Matrix");
         displayMatrix(rotationMatrix);
 
@@ -34,9 +35,10 @@ public class GraphicsPipeline : MonoBehaviour
 
         ////////Scale Matrix////////
         Matrix4x4 scaleMatrix =
-            Matrix4x4.TRS(new Vector3(0,0,0),
-            Quaternion.identity,
-            new Vector3(7, 4, 2)
+            Matrix4x4.TRS(
+                new Vector3(0,0,0),
+                Quaternion.identity,
+                new Vector3(7, 4, 2)
             );
         sw.WriteLine("\nScale Matrix");
         displayMatrix(scaleMatrix);
@@ -49,9 +51,11 @@ public class GraphicsPipeline : MonoBehaviour
 
         ////////Translation Matrix////////
         Matrix4x4 translationMatrix =
-            Matrix4x4.TRS(new Vector3(-1, 4, -1),
-            Quaternion.identity,
-            Vector3.one);
+            Matrix4x4.TRS(
+                new Vector3(-1, 4, -1),
+                Quaternion.identity,
+                Vector3.one
+            );
         sw.WriteLine("\nTranslation Matrix");
         displayMatrix(translationMatrix);
 
@@ -62,7 +66,8 @@ public class GraphicsPipeline : MonoBehaviour
         displayImageAfter(imageAfterTranslation);
 
         ////////Single Matrix of Transformations////////
-        Matrix4x4 transformMatrix = translationMatrix*scaleMatrix*rotationMatrix;
+        Matrix4x4 transformMatrix = 
+            translationMatrix*scaleMatrix*rotationMatrix;
         sw.WriteLine("\nSingle Matrix of Transformations");
         displayMatrix(transformMatrix);
 
@@ -72,9 +77,45 @@ public class GraphicsPipeline : MonoBehaviour
         sw.WriteLine("\nImage After Transformations");
         displayImageAfter(imageAfterTransform);
 
+        ////////Viewing Matrix////////
+        Matrix4x4 viewingMatrix =
+            Matrix4x4.LookAt(
+                new Vector3(21, 1, 48),
+                new Vector3(-2, 7, 2),
+                new Vector3(-1, -2, 19)
+            );
+        sw.WriteLine("\nViewing Matrix");
+        displayMatrix(viewingMatrix);
 
+        ////////Image After Viewing Matrix////////
+        List<Vector4> imageAfterViewing = 
+            applyTransformation(imageAfterTranslation, viewingMatrix);
+        sw.WriteLine("\nImage After Viewing Matrix");
+        displayImageAfter(imageAfterViewing);
 
+        ////////Projection Matrix////////
+        Matrix4x4 projectionMatrix =
+            Matrix4x4.Perspective(90, 1, 1, 1000);
+        sw.WriteLine("\nProjection Matrix");
+        displayMatrix(projectionMatrix);
 
+        ////////Image After Projection////////
+        List<Vector4> imageAfterProjection =
+            applyTransformation(imageAfterViewing, projectionMatrix);
+        sw.WriteLine("\nImage After Projection");
+        displayImageAfter(imageAfterProjection);
+
+        ////////Single Matrix For Everything////////
+        Matrix4x4 singleMatrix =
+            projectionMatrix * viewingMatrix * transformMatrix;
+        sw.WriteLine("\nSingle Matrix For Everything");
+        displayMatrix(singleMatrix);
+
+        ////////Final Image////////
+        List<Vector4> finalImage =
+            applyTransformation(verts, singleMatrix);
+        sw.WriteLine("\nFinal Image");
+        displayImageAfter(finalImage);
 
         sw.Close();
     }
