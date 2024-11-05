@@ -174,8 +174,6 @@ public class Model
         return hold;
     }
 
-    ////////////////////////////////////////////////////////
-
     public GameObject CreateUnityGameObject()
     {
         Mesh mesh = new Mesh();
