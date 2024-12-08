@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class Model
 {
-    public List<Vector3> vertices;
-    public List<Vector3Int> faces;
-    public List<Vector2> texture_coordinates;
-    public List<Vector3Int> texture_index_list;
-    public List<Vector3> normals;
+    internal List<Vector3> vertices;
+    internal List<Vector3Int> faces;
+    internal List<Vector2> texture_coordinates;
+    internal List<Vector3Int> texture_index_list;
+    List<Vector3> normals;
 
     public Model()
     {
         vertices = new List<Vector3>();
+        faces = new List<Vector3Int>();
+
         texture_coordinates = new List<Vector2>();
-        faces = new List<Vector3Int>(); 
         texture_index_list = new List<Vector3Int>();
         normals = new List<Vector3>();
+
         loadModelData();
     }
 
@@ -85,7 +87,7 @@ public class Model
         vertices.Add(new Vector3(2, -8, -1)); //2
         vertices.Add(new Vector3(5, -8, -1)); //3
         vertices.Add(new Vector3(-2, -2, -1)); //4
-        vertices.Add(new Vector3(0, 0, -1)); //5
+        vertices.Add(new Vector3(1, 0, -1)); //5
         vertices.Add(new Vector3(-2, 2, -1)); //6
         vertices.Add(new Vector3(-5, 8, -1)); //7
         vertices.Add(new Vector3(-2, 8, -1)); //8
@@ -97,7 +99,7 @@ public class Model
         vertices.Add(new Vector3(2, -8, 1)); //13
         vertices.Add(new Vector3(5, -8, 1)); //14
         vertices.Add(new Vector3(-2, -2, 1)); //15
-        vertices.Add(new Vector3(0, 0, 1)); //16
+        vertices.Add(new Vector3(1, 0, 1)); //16
         vertices.Add(new Vector3(-2, 2, 1)); //17
         vertices.Add(new Vector3(-5, 8, 1)); //18
         vertices.Add(new Vector3(-2, 8, 1)); //19
@@ -109,18 +111,22 @@ public class Model
     {
         //front face
         faces.Add(new Vector3Int(0, 1, 8)); texture_index_list.Add(new Vector3Int(0,1,8 )); normals.Add(new Vector3(0, 0, -1));
+        
         faces.Add(new Vector3Int(0, 8, 7)); texture_index_list.Add(new Vector3Int(0,8,7)); normals.Add(new Vector3(0, 0, -1));
 
         faces.Add(new Vector3Int(6, 5, 10)); texture_index_list.Add(new Vector3Int(6,5,10)); normals.Add(new Vector3(0, 0, -1));
         faces.Add(new Vector3Int(6, 10, 9)); texture_index_list.Add(new Vector3Int(6,10,9)); normals.Add(new Vector3(0, 0, -1));
-
+        
         faces.Add(new Vector3Int(2, 3, 5)); texture_index_list.Add(new Vector3Int(2, 3, 5)); normals.Add(new Vector3(0, 0, -1));
         faces.Add(new Vector3Int(2, 5, 4)); texture_index_list.Add(new Vector3Int(2, 5, 4)); normals.Add(new Vector3(0, 0, -1));
 
         faces.Add(new Vector3Int(4, 5, 6)); texture_index_list.Add(new Vector3Int(4, 5, 6)); normals.Add(new Vector3(0, 0, -1));
-
+        
+        
         //back face
+        
         faces.Add(new Vector3Int(11, 18, 19)); texture_index_list.Add(new Vector3Int(11, 18, 19)); normals.Add(new Vector3(0, 0, 1));
+        
         faces.Add(new Vector3Int(11, 19, 12)); texture_index_list.Add(new Vector3Int(11, 19, 12)); normals.Add(new Vector3(0, 0, 1));
 
         faces.Add(new Vector3Int(17, 20, 21)); texture_index_list.Add(new Vector3Int(17, 20, 21)); normals.Add(new Vector3(0, 0, 1));
@@ -164,6 +170,8 @@ public class Model
 
         faces.Add(new Vector3Int(3, 14, 16)); texture_index_list.Add(new Vector3Int(32, 33, 31)); normals.Add(new Vector3(8, 5, 1));
         faces.Add(new Vector3Int(3, 16, 5)); texture_index_list.Add(new Vector3Int(32, 31, 30)); normals.Add(new Vector3(8, 5, 1));
+
+        
     }
 
     List<Vector2> Adjust_to_relative(List<Vector2> pixels, float ResX, float ResY)
